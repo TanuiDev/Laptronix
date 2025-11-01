@@ -83,9 +83,12 @@ export const getUserById = async(id:number)=>{
 }
 
 export const deleteUser= async (id:number)=>{
+
+     if( isNaN(id))throw new Error('Id Should be a number')
+        
     const user = await userRepositories.getUserById(id)
     if(!user)throw new Error('User not found')
-    const results = await userRepositories.deleteUser(id)    
+    const results = await userRepositories.deleteUser(id)  
 
     return results;
 }

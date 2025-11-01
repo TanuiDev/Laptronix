@@ -9,6 +9,7 @@ export const userRoutes =(app:any)=>{
     app.post('/user/register',userController.createUser);
     app.post('/user/login',userController.loginUser)
     app.get('/users/:id',userController.getUserById)
+    app.delete('/user/:id',userController.deleteUser)
     
 
 }
