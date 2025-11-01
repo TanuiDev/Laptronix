@@ -74,3 +74,18 @@ export const loginUser = async(req:Request,res:Response)=>{
     res.status(500).json(error)
    }
 }
+
+export const getUserById = async(req:Request,res:Response)=>{
+    const id = parseInt(req.params.id)
+    try {
+        const user = await userServices.getUserById(id)
+        res.status(200).json(user)        
+    } catch (error:any) {
+        if(error.message === 'Id Should be a number' || error.message === 'User not found'){
+            res.status(404).json({error:error.message})
+        }
+        res.status(500).json({error:"Internal server error"})        
+    }
+
+
+}

@@ -43,3 +43,21 @@ export const loginUser = async(emailAddress:string, passwordHash:string)=>{
 
     return userData.recordset[0];
 }
+
+export const getUserById= async (id:number)=>{
+    const pool = await getPool()
+    const user =await  pool
+    .request()
+    .input("id",id)
+    .query("SELECT * FROM Users WHERE id = @id");
+    return user.recordset[0]||null
+    
+}
+export const deleteUser = async(id:number)=>{
+    const pool = await getPool()
+    await pool
+    .request()
+    .input("id",id)
+    .query("DELETE FROM Users WHERE id=@id")
+    return{message:"User deleted successfully"}
+}
