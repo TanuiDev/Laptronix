@@ -55,3 +55,22 @@ export const createUser = async (req:Request, res:Response)=>{
         res.status(500).json({error:'Internal server error'})
     }
 }
+
+export const loginUser = async(req:Request,res:Response)=>{
+    const {emailAddress,passwordHash}=req.body
+
+   try {
+    
+     const user = await userServices.loginUser(emailAddress,passwordHash)
+    
+    res.status(200).json(user)
+    
+   } catch (error:any) {
+    if(error.message === 'User not found') {
+        res.status(4040).json({error: error.message})        
+    } else if(error.message === 'Invalid credentials')  {
+        res.status(401).json({error: error.message})
+    }
+    res.status(500).json(error)
+   }
+}

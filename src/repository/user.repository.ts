@@ -32,3 +32,14 @@ export const createUser = async (user:newUser)=>{
     .query("INSERT INTO Users(firstName,lastName,userName,emailAddress,phoneNumber,passwordHash,userRole)Values(@firstName,@lastName,@userName,@emailAddress,@phoneNumber,@passwordHash,@userRole) ");
     return {message:"User creates successfully"}
 }
+
+export const loginUser = async(emailAddress:string, passwordHash:string)=>{
+    const pool = await getPool()
+    const userData = await pool
+    .request()
+    .input("emailAddress",emailAddress)
+    .input("passwordHash",passwordHash)
+    .query("SELECT FROM Users WHERE emailAddress = @emailAddress AND passwordHash = @passwordHash")
+
+    return userData.recordset[0];
+}

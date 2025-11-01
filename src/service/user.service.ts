@@ -1,6 +1,10 @@
+import jwt from 'jsonwebtoken'
 import * as userRepositories from '../repository/user.repository'
 import { newUser } from '../types/user.types'
 import bcrypt from 'bcrypt'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 export const fetchAllUsers = async ()=>{
     const results = await userRepositories.getAllUsers()
@@ -28,4 +32,38 @@ export const createUser = async(user:newUser)=>{
 
    return result
 
+}
+
+export const loginUser = async(emailAddress:string, passwordHash:string)=>{
+    const user = await userRepositories.getUserByEmail(emailAddress);
+    if(!user) throw new Error('User not found')
+    const isMatch = await bcrypt.compare(passwordHash,user.passwordHash)    
+    if(!isMatch)throw new Error('Invalid credentials')
+
+    const payload={
+        sub:user.id,
+        FN:user.firstName,
+        LN:user.lastName,
+        role:user.userRole,
+        exp:Math.floor(Date.now()/1000 +(60*60) )} 
+
+    const secret = process.env.JWT_SECRET as string
+
+    if(!secret)throw new Error('JWT secret not defined')
+     const token = jwt.sign(payload,secret)
+    return{
+        message:"Login Successful",
+        token,
+        user:   {
+            id: user.id,
+            firstName: user.firstName,
+            lastName:user.lastName,
+            userName:user.userName,
+            phoneNumber:user.phoneNumber,
+            emailAddress:user.emailAddress,
+            userRole:user.userRole,
+            profileImage:user.profileIMage
+        }
+       
+    }
 }
