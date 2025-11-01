@@ -1,7 +1,7 @@
 import dotenv from "dotenv"
-import { getPoll } from "./db/config"
+import { getPool } from "./db/config"
 import app from "./index"
-import { error } from "console"
+
 dotenv.config()
 
 
@@ -18,6 +18,6 @@ app.listen(port,()=>{
 
 
 
-getPoll()
+getPool()
 .then(()=>{console.log("Database connected successfully")})
 .catch((error:any)=>{console.log("Database connection failed",error)})

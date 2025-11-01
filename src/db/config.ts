@@ -42,7 +42,7 @@ export const config ={
 }
 
 
-export const getPoll =async ()=>{
+export const getPool =async ()=>{
     
    try {
      const pool = await sql.connect(

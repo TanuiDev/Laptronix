@@ -5,3 +5,8 @@ export const fetchAllUsers = async ()=>{
     return results
 }
 
+export const getUserByEmail = async (emailAddress:string)=>{
+    const user = await userRepositories.getUserByEmail(emailAddress)
+    return user;
+
+}
