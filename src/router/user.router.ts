@@ -5,7 +5,7 @@ import { adminAndUser,adminOnly,userOnly } from '../middlewares/bearerAuth';
 
 
 export const userRoutes =(app:any)=>{
-    app.get('/users',adminOnly,userController.getAllusers);
+    app.get('/users',userOnly,userController.getAllusers);
     app.get('/user/:emailAddress',userController.getUserByEmail);
     app.post('/user/register',userController.createUser);
     app.post('/user/login',userController.loginUser)
