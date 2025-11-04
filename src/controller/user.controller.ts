@@ -49,10 +49,9 @@ export const createUser = async (req:Request, res:Response)=>{
         
     } catch (error:any) {
         if(error.message === 'User already exist'){
-            res.status(409).json({error:error.message})
-        }
+            res.status(409).json({error:error.message})        }
         
-        res.status(500).json({error:'Internal server error'})
+        res.status(500).json({error:'Internal server error', errorMessage:error.message} )
     }
 }
 
@@ -71,7 +70,7 @@ export const loginUser = async(req:Request,res:Response)=>{
     } else if(error.message === 'Invalid credentials')  {
         res.status(401).json({error: error.message})
     }
-    res.status(500).json(error)
+    res.status(500).json({error:"Internal server error", errorMessage:error.message} )
    }
 }
 

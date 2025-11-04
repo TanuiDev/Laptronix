@@ -3,6 +3,8 @@ import * as userRepositories from '../repository/user.repository'
 import { newUser } from '../types/user.types'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
+import { sendMail } from '../mailer/mailer'
+import { emailTemplate } from '../mailer/mailTemplate'
 
 dotenv.config()
 
@@ -27,8 +29,22 @@ export const createUser = async(user:newUser)=>{
     const password = await bcrypt.hash(user.passwordHash,10) ;
     user.passwordHash =password          
    }
+
+   const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+   user.verificationCode = verificationCode;
    
    const result = await userRepositories.createUser(user)
+   await userRepositories.setVerificationCode(user.emailAddress,verificationCode);
+   try {
+    await  sendMail(
+        user.emailAddress,
+        'Verify your Email Address',
+        emailTemplate.verifyEmail(user.verificationCode)
+    )
+   } catch (error) {
+    console.error('Error sending verification email:', error);
+    return false;
+   }
 
    return result
 

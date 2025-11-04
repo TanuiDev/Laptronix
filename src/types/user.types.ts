@@ -7,4 +7,5 @@ export interface newUser{
     emailAddress:string,
     profileImage?:string,
     userRole:string
+    verificationCode?:string
 }

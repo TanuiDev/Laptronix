@@ -33,6 +33,14 @@ export const createUser = async (user:newUser)=>{
     return {message:"User creates successfully"}
 }
 
+export const setVerificationCode = async(emailAddress:string, code:string)=>{
+    const pool = await getPool()
+    await pool.request()
+    .input("emailAddress",emailAddress)
+    .input("verificationCode",code)
+    .query("UPDATE Users SET verificationCode=@verificationCode WHERE emailAddress=@emailAddress");    
+}
+
 export const loginUser = async(emailAddress:string, passwordHash:string)=>{
     const pool = await getPool()
     const userData = await pool
@@ -61,3 +69,4 @@ export const deleteUser = async(id:number)=>{
     .query("DELETE FROM Users WHERE id=@id")
     return{message:"User deleted successfully"}
 }
+
