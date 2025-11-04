@@ -136,3 +136,4 @@ export const updateUserDetails = async(id:number, userData:Partial<updateUser>)=
     const result = await userRepositories.updateUserProfile(updatedUserData)
     return result;
 }
+
