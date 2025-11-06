@@ -22,9 +22,8 @@ VALUES('Brian','Kibiwott','Tanui','0718105315','bk.kibiwott@gmail.com','Tanui123
 
 SELECT * FROM Users;
 
-CREATE TABLE Products (
-    productId INT IDENTITY(1,1) PRIMARY KEY,
-    userId INT NOT NULL,
+CREATE TABLE Products(
+    productId INT IDENTITY(1,1) PRIMARY KEY,    
     productName VARCHAR(100) NOT NULL,
     productBrand VARCHAR(50) NOT NULL,
     productImage VARCHAR(100) NOT NULL,
@@ -34,11 +33,11 @@ CREATE TABLE Products (
     productPrice DECIMAL(10, 2) NOT NULL,
     createdOn DATETIME2 DEFAULT SYSDATETIME(),
     updatedOn DATETIME2 DEFAULT SYSDATETIME(),
-    FOREIGN KEY (userId) REFERENCES Users(id)
+   
 )
 -- DROP TABLE IF EXISTS Products;
 
-INSERT INTO Products(userId,productName,productBrand,productImage,stockQuantity,productDescription,productCategory,productPrice)
-VALUES(5,'Dell XPS 13','Dell','dellxps13.jpg',50,'A high-performance laptop with a sleek design.','Laptops',999.99)
+INSERT INTO Products(productName,productBrand,productImage,stockQuantity,productDescription,productCategory,productPrice)
+VALUES('Dell XPS 13','Dell','dellxps13.jpg',50,'A high-performance laptop with a sleek design.','Laptops',999.99)
 
 SELECT * FROM Products;

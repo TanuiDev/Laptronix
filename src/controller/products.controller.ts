@@ -24,3 +24,14 @@ export const getProductByIdController = async (req: Request, res: Response) => {
       }
 }
 
+export const createProductController = async (req: Request, res: Response) => {
+   const product = req.body;
+      try {
+            const result = await productServices.createProductService(product);
+            res.status(201).json(result);
+      } catch (error:any) {
+            res.status(500).json({ message: "Internal server error", errorMessage: error.message });         
+      }
+}
+
+   
