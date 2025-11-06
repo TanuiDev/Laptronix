@@ -10,3 +10,17 @@ export const getAllProductsController = async (req: Request, res: Response) => {
    }
 }
 
+export const getProductByIdController = async (req: Request, res: Response) => {
+      const productId = parseInt(req.params.id);
+      try {
+          const product = await productServices.getProductByIdService(productId);
+          if (product) {
+              res.status(200).json(product);
+          } else {
+              res.status(404).json({ message: "Product not found" });
+          }
+      } catch (error: any) {
+          res.status(500).json({ message: "Internal server error", errorMessage: error.message });
+      }
+}
+
