@@ -41,3 +41,4 @@ export const updateProductService = async (productId: number, updatedProduct: Pr
     const result = await productsRepositories.updateProduct(productId, updatedFields);
     return result;
 }
+
