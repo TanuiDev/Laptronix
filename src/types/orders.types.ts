@@ -1,7 +1,7 @@
-export interface Order {    
-    userId: number;
-    productId: number;
-    quantity: number;
-    totalAmount: number;
-    status: string;    
+export interface Order {
+  userId: number;
+  productId: number;
+  quantity: number;
+  totalAmount: number;
+  status: string;
 }

@@ -1,32 +1,32 @@
 import * as ordersRepository from "../repository/orders.repository";
 
 export const fetchAllOrders = async () => {
-    const orders = await ordersRepository.getAllOrders();
-    return orders;
+  const orders = await ordersRepository.getAllOrders();
+  return orders;
 };
 export const fetchOrderById = async (orderId: number) => {
-    const order = await ordersRepository.getOrderById(orderId);
-    return order;
+  const order = await ordersRepository.getOrderById(orderId);
+  return order;
 };
 
 export const addNewOrder = async (orderData: any) => {
-    const newOrder = await ordersRepository.createOrder(orderData);
-    return newOrder;
+  const newOrder = await ordersRepository.createOrder(orderData);
+  return newOrder;
 };
 
 export const changeOrderStatus = async (orderId: number, status: string) => {
-    const order = await ordersRepository.getOrderById(orderId);
-    if (!order) {
-        throw new Error("Order not found");
-    }  
-    const result = await ordersRepository.updateOrderStatus(orderId, status);
-    return result;
-}
+  const order = await ordersRepository.getOrderById(orderId);
+  if (!order) {
+    throw new Error("Order not found");
+  }
+  const result = await ordersRepository.updateOrderStatus(orderId, status);
+  return result;
+};
 export const removeOrder = async (orderId: number) => {
-    const order = await ordersRepository.getOrderById(orderId);
-    if (!order) {
-        throw new Error("Order not found");
-    }
-    const result = await ordersRepository.deleteOrder(orderId);
-    return result;
+  const order = await ordersRepository.getOrderById(orderId);
+  if (!order) {
+    throw new Error("Order not found");
+  }
+  const result = await ordersRepository.deleteOrder(orderId);
+  return result;
 };
