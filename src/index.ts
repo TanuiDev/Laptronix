@@ -1,6 +1,7 @@
 import express, { json } from 'express'
  import { userRoutes } from './router/user.router'
 import { productsRoutes } from './router/products.routers'
+import { ordersRoutes } from './router/orders.router'
 
 
 
@@ -12,7 +13,7 @@ const initiallizeAPP =() => {
 
     userRoutes(app);
     productsRoutes(app);   
-
+    ordersRoutes(app);
     return app
 
 }

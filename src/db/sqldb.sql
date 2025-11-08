@@ -41,3 +41,21 @@ INSERT INTO Products(productName,productBrand,productImage,stockQuantity,product
 VALUES('Dell XPS 13','Dell','dellxps13.jpg',50,'A high-performance laptop with a sleek design.','Laptops',999.99)
 
 SELECT * FROM Products;
+
+CREATE TABLE Orders(
+    orderId INT IDENTITY(1,1) PRIMARY KEY,
+    userId INT NOT NULL,
+    productId INT NOT NULL,
+    quantity INT NOT NULL,
+    orderDate DATETIME2 DEFAULT SYSDATETIME(),
+    totalAmount DECIMAL(10, 2) NOT NULL,
+    orderStatus VARCHAR(20) NOT NULL DEFAULT 'Pending',
+    FOREIGN KEY (userId) REFERENCES Users(id),
+    FOREIGN KEY (productId) REFERENCES Products(productId)
+
+)
+-- DROP TABLE IF EXISTS Orders;
+INSERT INTO Orders(userId,productId,quantity,totalAmount)
+VALUES(1011,1,2,1999.98)
+
+SELECT * FROM Orders;
