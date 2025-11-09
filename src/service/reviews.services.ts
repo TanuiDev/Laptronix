@@ -11,3 +11,12 @@ export const fetchReviewById = async (reviewId: number) => {
 export const addNewReview = async (reviewData: any) => {
     return await reviewsRepository.createReview(reviewData);
 }
+
+export const removeReview = async (reviewId: number) => {
+    const review = await reviewsRepository.getReviewById(reviewId);
+    if (!review) {
+        throw new Error("Review not found");
+    }
+   const result = await reviewsRepository.deleteReview(reviewId);
+   return result;
+}

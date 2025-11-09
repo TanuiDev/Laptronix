@@ -28,3 +28,13 @@ export const createReview = async (reviewData: Review) => {
     .query('INSERT INTO Reviews (productId, userId, rating, comment) VALUES (@productId, @userId, @rating, @comment); SELECT SCOPE_IDENTITY() AS reviewId;');
     return result.recordset[0];
 }
+
+export const deleteReview = async (reviewId: number) => {
+    const pool = await getPool();
+    await pool
+    .request()
+    .input("reviewId", reviewId)
+    .query("DELETE FROM Reviews WHERE reviewId = @reviewId");
+
+    return {message: "Review deleted successfully"};
+}

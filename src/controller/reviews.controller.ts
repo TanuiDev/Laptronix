@@ -34,3 +34,17 @@ export const createReview = async (req:Request,res:Response) => {
         res.status(500).json({"Internal server error":error.message});
     }
 }
+
+export const deleteReview = async (req:Request,res:Response) => {
+    const reviewId = parseInt(req.params.id);
+    try {
+        const result = await reviewsServices.removeReview(reviewId);
+        res.status(200).json(result);
+    } catch (error:any) {
+        if (error.message === "Review not found") {
+            res.status(404).json({ message: "Review not found" });
+            return;
+        }
+        res.status(500).json({"Internal server error":error.message});
+    }
+}   
