@@ -7,3 +7,11 @@ export const getAllReviews = async () => {
 };
 
 
+export const getReviewById = async (reviewId: number) => {
+  const pool = await getPool();
+  const result = await pool
+  .request()
+  .input("reviewId", reviewId)
+  .query("SELECT * FROM Reviews WHERE reviewId = @reviewId    ");
+  return result.recordset[0];
+};
