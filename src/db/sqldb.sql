@@ -64,3 +64,21 @@ INSERT INTO Orders(userId,productId,quantity,totalAmount)
 VALUES(1011,1,2,1999.98)
 
 SELECT * FROM Orders;
+CREATE TABLE Reviews(
+    reviewId INT IDENTITY(1,1) PRIMARY KEY,
+    userId INT NOT NULL,
+    productId INT NOT NULL,
+    rating INT CHECK (rating >= 1 AND rating <= 5),
+    comment TEXT,
+    reviewDate DATETIME2 DEFAULT SYSDATETIME(),
+    FOREIGN KEY (userId) REFERENCES Users(id),
+    FOREIGN KEY (productId) REFERENCES Products(productId)
+)
+ALTER TABLE Reviews
+ADD CONSTRAINT FK_Reviews_Users FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE,
+    CONSTRAINT FK_Reviews_Products FOREIGN KEY (productId) REFERENCES Products(productId) ON DELETE CASCADE;
+-- DROP TABLE IF EXISTS Reviews;
+INSERT INTO Reviews(userId,productId,rating,comment)
+VALUES(1011,1,5,'Excellent laptop with great performance!')
+
+SELECT * FROM Reviews;
